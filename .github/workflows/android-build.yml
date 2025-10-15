@@ -28,7 +28,8 @@ jobs:
             curl \
             libffi-dev \
             libssl-dev \
-            libsqlite3-dev
+            libsqlite3-dev \
+            libncurses6
 
       - name: Install Buildozer
         run: |
@@ -42,7 +43,6 @@ jobs:
           cd /opt/android
           wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
           unzip commandlinetools-linux-9477386_latest.zip -d cmdline-tools
-          sudo apt-get install -y libncurses5
           export ANDROID_HOME=/opt/android
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
           yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses
