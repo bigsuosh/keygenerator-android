@@ -39,30 +39,10 @@ jobs:
 
       - name: Install Android SDK/NDK
         run: |
-          sudo mkdir -p /opt/android
-          cd /opt/android
+          sudo mkdir -p /opt/android/cmdline-tools/latest
+          cd /opt/android/cmdline-tools
           wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-          unzip commandlinetools-linux-9477386_latest.zip -d cmdline-tools
+          unzip -q commandlinetools-linux-9477386_latest.zip
+          mv cmdline-tools/latest .
           export ANDROID_HOME=/opt/android
-          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
-          yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses
-          sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-31" "platform-tools" "build-tools;31.0.0" "ndk;21.4.7075529"
-
-      - name: Set environment variables
-        run: |
-          echo "export ANDROIDSDK=/opt/android" >> $GITHUB_ENV
-          echo "export ANDROIDNDK=/opt/android/ndk/21.4.7075529" >> $GITHUB_ENV
-          echo "export ANDROIDAPI=31" >> $GITHUB_ENV
-          echo "export NDKAPI=21" >> $GITHUB_ENV
-          echo "export PATH=$PATH:/opt/android/platform-tools" >> $GITHUB_ENV
-
-      - name: Build APK using Buildozer
-        run: |
-          buildozer android debug
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk
-          path: |
-            **/*.apk
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bi_
