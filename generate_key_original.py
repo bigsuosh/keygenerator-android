@@ -1,0 +1,1 @@
+# Original file provided by user (for reference)\nfrom cryptography.fernet import Fernet\n\nfile_name = input('Please enter the key file name (without extension): ') + '.key'\nkey = Fernet.generate_key()\nwith open(file_name, 'wb') as f:\n    f.write(key)\nprint(f'Key generated and saved in {file_name}')\n
